@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import java.io.Serializable;
+
 /**
  * The <code>OrganismTree</code> represents
  * the ternary tree of OrganismNode objects.
@@ -10,7 +12,7 @@ package com.example.myapplication;
  *    Recitation: 02
  **/
 
-public class OrganismTree {
+public class OrganismTree implements Serializable {
     private OrganismNode root;
     private OrganismNode cursor;
 
@@ -201,8 +203,8 @@ public class OrganismTree {
      *    <dd>cursor has not moved.</dd>
      *    <dd>root has not moved.</dd>
      */
-    public void printOrganismTree(){
-        printTreeHelper("", cursor);
+    public String printOrganismTree(){
+        return printTreeHelper("", cursor);
     }
 
     /**
@@ -255,23 +257,25 @@ public class OrganismTree {
         }
     }
 
-    private void printTreeHelper(String indent, OrganismNode curNode){
+    private String printTreeHelper(String indent, OrganismNode curNode){
+        String ans = "";
         if(curNode.getIsPlant()){
-            System.out.println(indent + "- " + curNode.getName());
+            ans += indent + "- " + curNode.getName();
         }
         else{
             String newIndent = indent + "    ";
-            System.out.println(indent + "|- " + curNode.getName());
+            ans += indent + "|- " + curNode.getName();
             if(curNode.getLeft() != null){
-                printTreeHelper(newIndent, curNode.getLeft());
+                ans += printTreeHelper(newIndent, curNode.getLeft());
                 if(curNode.getMiddle() != null){
-                    printTreeHelper(newIndent, curNode.getMiddle());
+                    ans += printTreeHelper(newIndent, curNode.getMiddle());
                 }
                 if(curNode.getRight() != null){
-                    printTreeHelper(newIndent, curNode.getRight());
+                    ans += printTreeHelper(newIndent, curNode.getRight());
                 }
             }
         }
+        return ans;
     }
 
     private String listPlantHelper(OrganismNode curNode){

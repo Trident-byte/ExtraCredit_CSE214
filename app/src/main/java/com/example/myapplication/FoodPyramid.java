@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Scanner;
  *    Recitation: 02
  **/
 
-public class FoodPyramid {
+public class FoodPyramid implements Serializable {
     /**
      * The main method runs the program and prompts the menu below,
      * and it allows various functions to be performed on your

@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import java.io.Serializable;
+
 /**
  * The <code>OrganismNode</code> represents a single
  * organism in the ecosystem.
@@ -10,7 +12,7 @@ package com.example.myapplication;
  *    Recitation: 02
  **/
 
-public class OrganismNode {
+public class OrganismNode implements Serializable {
     private String name;
     private boolean isPlant;
     private boolean isHerbivore;
