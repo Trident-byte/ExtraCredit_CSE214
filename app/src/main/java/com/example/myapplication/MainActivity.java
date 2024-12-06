@@ -25,18 +25,24 @@ public class MainActivity extends AppCompatActivity {
     public void toggle(View v){
         int idNum = v.getId();
         commandNum = idNum;
-        Intent add = new Intent();
-        TextView t = findViewById(R.id.Output);
+        Intent add;
+        TextView t = findViewById(R.id.output);
         if (idNum == R.id.AddAnimal) {
             add = new Intent(this, add_animal.class);
             add.putExtra("FOOD_PYRAMID", pyramid);
             startActivity(add);
         } else if (idNum == R.id.AddPlant) {
-
+            add = new Intent(this, add_plants.class);
+            add.putExtra("FOOD_PYRAMID", pyramid);
+            startActivity(add);
         } else if (idNum == R.id.RemoveOrganism) {
-
+            add = new Intent(this, remove_organism.class);
+            add.putExtra("FOOD_PYRAMID", pyramid);
+            startActivity(add);
         } else if (idNum == R.id.MoveCursor) {
-
+            add = new Intent(this, move_cursor.class);
+            add.putExtra("FOOD_PYRAMID", pyramid);
+            startActivity(add);
         } else if (idNum == R.id.ResetCursor) {
             pyramid.cursorReset();
             t.setText("Cursor has been reset");

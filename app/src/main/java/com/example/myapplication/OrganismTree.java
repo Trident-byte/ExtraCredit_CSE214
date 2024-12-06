@@ -204,7 +204,7 @@ public class OrganismTree implements Serializable {
      *    <dd>root has not moved.</dd>
      */
     public String printOrganismTree(){
-        return printTreeHelper("", cursor);
+        return printTreeHelper("\n", cursor);
     }
 
     /**

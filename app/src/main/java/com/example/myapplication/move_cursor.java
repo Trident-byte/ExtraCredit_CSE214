@@ -2,7 +2,6 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -13,11 +12,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class add_animal extends AppCompatActivity {
+public class move_cursor extends AppCompatActivity {
     boolean addName = false;
-    boolean addDiet = false;
     String name = "";
-    boolean[] dietArray = new boolean[2];
 
     OrganismTree pyramid;
 
@@ -25,7 +22,7 @@ public class add_animal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_add_animal);
+        setContentView(R.layout.activity_move_cursor);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -35,50 +32,28 @@ public class add_animal extends AppCompatActivity {
     }
 
     public void addInfo(View v){
-        TextView y = findViewById(R.id.Output);
-        if(v.getId() == R.id.enterName){
-            EditText t = findViewById(R.id.AddNameField);
-            name = t.getText().toString();
+        EditText t = findViewById(R.id.AddNameField);
+        name = t.getText().toString();
+        if(!name.equals("Empty")){
             addName = true;
-            if(name.equals("Empty")){
-                addName = false;
-                y.setText("Please input a valid name");
-            }
-
         }
         else{
-            EditText t = findViewById(R.id.AddDietField);
-            addDiet = true;
-            String diet = t.getText().toString();
-            switch(diet){
-                case "C":
-                    dietArray[1] = true;
-                    break;
-                case "H":
-                    dietArray[0] = true;
-                    break;
-                case "O":
-                    dietArray[0] = true;
-                    dietArray[1] = true;
-                    break;
-                default:
-                    addDiet = false;
-                    y.setText("Please use C, H or O to define diet");
-            }
+            TextView y = findViewById(R.id.Output);
+            y.setText("Please input a name");
         }
     }
 
-    public void addAnimal(View v){
+    public void moveCursor(View v){
         TextView t = findViewById(R.id.Output);
-        if(addDiet && addName){
+        if(addName){
             try{
-                pyramid.addAnimalChild(name, dietArray[0], dietArray[1]);
-                t.setText("A(n) " + name + " has successfully been added as prey for the "
+                pyramid.moveCursor(name);
+                t.setText("A(n) " + name + " has been successfully removed as prey for the "
                         + pyramid.getCursor().getName() + "!");
                 Intent add = new Intent(this, MainActivity.class);
                 add.putExtra("FOOD_PYRAMID", pyramid);
                 startActivity(add);
-            } catch(PositionNotAvailableException | IllegalArgumentException e){
+            } catch(Exception e){
                 t.setText(e.getMessage());
             }
         }
